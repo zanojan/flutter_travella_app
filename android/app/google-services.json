@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "890313349699",
+    "project_id": "travella-b6a4e",
+    "storage_bucket": "travella-b6a4e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890313349699:android:42c177e504cb7aebbe52f6",
+        "android_client_info": {
+          "package_name": "com.example.flutter_travella_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2MldZ8ZO_fdSioD3HRxPf_KGBDfJwiWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
