@@ -1,7 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/destination.dart';
+import '../../../data/models/destination.dart';
 
 class CardSearch extends StatelessWidget {
   final Destination wisata;
@@ -29,11 +31,12 @@ class CardSearch extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(wisata.name, style: TextStyle(fontSize: 12),),
+                  Text(wisata.name, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.secondary),),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.amberAccent, size: 12,),
-                      Text(wisata.rating.toString(),style: TextStyle(fontSize: 12),),
+                      Icon(Icons.star, color: Colors.amberAccent, size: 15,),
+                      SizedBox(width: 2,),
+                      Text(wisata.rating.toString(),style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.secondary),),
                     ],
                   )
                 ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travella_app/data/destination.dart';
-import 'package:flutter_travella_app/data/kendaraan.dart';
+import 'package:flutter_travella_app/data/models/destination.dart';
+import 'package:flutter_travella_app/data/models/kendaraan.dart';
 import 'package:flutter_travella_app/screen/home/detail/all_destination.dart';
-import 'package:flutter_travella_app/screen/home/detail/detail_kendaraan.dart';
 import 'package:flutter_travella_app/screen/home/detail/detail_wisata.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -21,17 +20,21 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   'Selamat Datang Kembali, Traveler!',
-                  style: TextStyle(color: Color(0xff7B5131)),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
                 SizedBox(height: 6),
                 Text(
                   'Mari Bicara Tentang Perjalanan,\nKapan Saja, Dimana Saja!',
-                  style: TextStyle(color: Color(0xff7B5131)),
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffFBF4E3),
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
@@ -41,7 +44,11 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Hai Sobat Traveler\nKamu mau pergi\nkemana Hari ini ?',
-                          style: TextStyle(color: Color(0XFF7B5131)),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                         Image.asset('assets/maskot.png'),
                       ],
@@ -51,7 +58,11 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 25),
                 Text(
                   'Adventure Vehicle',
-                  style: TextStyle(color: Color(0xff7B5131)),
+                  style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                 ),
                 SizedBox(height: 10),
                 SizedBox(
@@ -61,22 +72,14 @@ class HomeScreen extends StatelessWidget {
                     itemCount: kendaraanList.length,
                     itemBuilder: (context, index) {
                       final Kendaraan kendaraan = kendaraanList[index];
-                      return InkWell(
+                      return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DetailKendaraan();
-                              },
-                            ),
-                          );
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 6),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Color(0xffFBF4E3),
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
@@ -100,8 +103,12 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Destionation',
-                      style: TextStyle(color: Color(0xff7B5131)),
+                      'Destination',
+                      style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -114,7 +121,11 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: Text(
                         'all',
-                        style: TextStyle(color: Color(0xff7B5131)),
+                        style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                       ),
                     ),
                   ],
@@ -157,7 +168,11 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 25),
                 Text(
                   'Travel Inspiration',
-                  style: TextStyle(color: Color(0xff7B5131)),
+                  style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                 ),
                 SizedBox(height: 10),
                 Container(

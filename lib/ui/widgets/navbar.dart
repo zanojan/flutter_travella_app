@@ -30,22 +30,22 @@ class _NavbarState extends State<Navbar> {
           });
         },
         activeIcons: [
-          Icon(Icons.home_filled, color: Color(0xff7B5131)),
-          Icon(Icons.chat, color: Color(0xff7B5131)),
-          Icon(Icons.settings, color: Color(0xff7B5131)),
+          Icon(Icons.home_filled, color: Theme.of(context).colorScheme.secondary),
+          Icon(Icons.chat, color: Theme.of(context).colorScheme.secondary),
+          Icon(Icons.settings, color: Theme.of(context).colorScheme.secondary),
 
         ],
         inactiveIcons: [
-          Text('Home', style: TextStyle(color: Color(0xff7B5131))),
-          Text('Chat Bot', style: TextStyle(color: Color(0xff7B5131))),
-          Text('Settings', style: TextStyle(color: Color(0xff7B5131))),
+          Text('Home', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+          Text('Chat Bot', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+          Text('Settings', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
         ],
-        color: Colors.white,
-        circleColor: Colors.white,
+        color: Theme.of(context).colorScheme.primary,
+        circleColor: Theme.of(context).colorScheme.primary,
         height: 60,
         circleWidth: 60,
-        shadowColor: Color(0xffdedede),
-        circleShadowColor: Color(0xffdedede),
+        shadowColor: Theme.of(context).colorScheme.surface,
+        circleShadowColor: Theme.of(context).colorScheme.surface,
         elevation: 10,
         tabCurve:Easing.standardAccelerate,
 

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travella_app/screen/home/detail/detail_wisata.dart';
-import 'package:flutter_travella_app/screen/search/card_search.dart';
+import 'package:flutter_travella_app/screen/home/components/card_search.dart';
 
-import '../../../data/destination.dart';
+import '../../../data/models/destination.dart';
 
 class AllDestination extends StatefulWidget {
   const AllDestination({super.key});
@@ -44,14 +44,14 @@ class _AllDestinationState extends State<AllDestination> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Color(0xff7B5131)),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.secondary),
         centerTitle: true,
         title: Text(
           'Destination',
-          style: TextStyle(color: Color(0xff7B5131), fontSize: 20),
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 20),
         ),
       ),
       body: SafeArea(
@@ -62,7 +62,7 @@ class _AllDestinationState extends State<AllDestination> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color(0xffFBF4E3),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 child: Row(
                   children: [
@@ -71,7 +71,7 @@ class _AllDestinationState extends State<AllDestination> {
                         controller: _controller,
                         decoration: InputDecoration(
                           hintText: 'Search',
-                          hintStyle: TextStyle(color: Color(0xff7b5131)),
+                          hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(horizontal: 20),
                         ),
@@ -82,7 +82,7 @@ class _AllDestinationState extends State<AllDestination> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.search, color: Color(0xff7B5131)),
+                      icon: Icon(Icons.search, color: Theme.of(context).colorScheme.secondary),
                     ),
                   ],
                 ),

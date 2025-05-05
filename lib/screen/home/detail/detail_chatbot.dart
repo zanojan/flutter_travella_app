@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-import '../../../data/message.dart';
+import '../../../data/models/message.dart';
 
 class DetailChatbot extends StatefulWidget {
   const DetailChatbot({super.key});
@@ -21,6 +21,50 @@ class _DetailChatbotState extends State<DetailChatbot> {
     return response.replaceAll('*', '');
   }
 
+  bool isGreating(String prompt) {
+    const greetings = ['hai', 'hello', 'hallo', 'hi', 'selamat pagi', 'selamat siang', 'selamat malam'];
+    return greetings.any((greeting) => prompt.toLowerCase() == greeting);
+  }
+
+  bool isTravelingRelated(String prompt) {
+    const travelKeywords = [
+      "travel",
+      "wisata",
+      "destinasi",
+      "hotel",
+      "perjalanan",
+      "akomodasi",
+      "transportasi",
+      "liburan",
+      "tiket",
+    ];
+    return travelKeywords.any((keyword) => prompt.toLowerCase().contains(keyword));
+  }
+
+  bool isTransportationQuestion(String prompt) {
+  const transportKeywords = [
+    "kendaraan",
+    "transportasi",
+    "mobil",
+    "motor",
+    "bus",
+    "kereta",
+    "pesawat",
+    "kapal"
+  ];
+  return transportKeywords.any((keyword) => prompt.toLowerCase().contains(keyword));
+}
+
+String getTransportOptions() {
+  return "Kendaraan yang bisa Anda gunakan untuk perjalanan adalah:\n"
+      "- Mobil\n"
+      "- Motor\n"
+      "- Bus\n"
+      "- Kereta api\n"
+      "- Pesawat\n"
+      "- Kapal laut";
+}
+
   callGeminiModel() async {
     try {
       if (_controller.text.isNotEmpty) {
@@ -28,11 +72,50 @@ class _DetailChatbotState extends State<DetailChatbot> {
         _isLoading = true;
       }
 
+      final prompt = _controller.text.trim();
+
+      // Periksa apakah input adalah greeting
+    if (isGreating(prompt)) {
+      setState(() {
+        _message.add(Message(
+          text: "Halo! Bagaimana saya bisa membantu perjalanan Anda hari ini?",
+          isUser: false,
+        ));
+        _isLoading = false;
+      });
+      _controller.clear();
+      return;
+    }
+
+        // Periksa apakah pertanyaan tentang kendaraan
+    if (isTransportationQuestion(prompt)) {
+      setState(() {
+        _message.add(Message(
+          text: getTransportOptions(),
+          isUser: false,
+        ));
+        _isLoading = false;
+      });
+      _controller.clear();
+      return;
+    }
+
+      if(!isTravelingRelated(prompt)) {
+        setState(() {
+          _message.add(Message(
+            text: "Maaf, saya hanya bisa menjawab pertanyaan terkait travel.", 
+            isUser: false
+            ));
+        _isLoading = false;
+        });
+        _controller.clear();
+        return;
+      }
+
       final model = GenerativeModel(
         model: 'gemini-2.0-flash',
         apiKey: dotenv.env['GEMINI_API_KEY']!,
       );
-      final prompt = _controller.text.trim();
       final content = [Content.text(prompt)];
       final response = await model.generateContent(content);
 
@@ -44,20 +127,31 @@ class _DetailChatbotState extends State<DetailChatbot> {
       _controller.clear();
     } catch (e) {
       print('error : $e');
+      setState(() {
+        _message.add(Message(
+          text: "Terjadi kesalahan. silahkan cobalagi nanti.", 
+          isUser: false
+          ));
+          _isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Color(0xff7B5131)),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         centerTitle: true,
         title: Text(
           'Chat Bot',
-          style: TextStyle(color: Color(0xff7B5131), fontSize: 20),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
       ),
       body: Column(
@@ -78,10 +172,11 @@ class _DetailChatbotState extends State<DetailChatbot> {
                       decoration:
                           message.isUser
                               ? BoxDecoration(
-                                color: Color(0xffFBF4E3),
+                                color: Theme.of(context).colorScheme.primary,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0xff7B5131),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     offset: Offset(0, 4),
                                     blurRadius: 4,
                                   ),
@@ -93,10 +188,11 @@ class _DetailChatbotState extends State<DetailChatbot> {
                                 ),
                               )
                               : BoxDecoration(
-                                color: Color(0xffFBF4E3),
+                                color: Theme.of(context).colorScheme.primary,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0xff7B5131),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     offset: Offset(0, 4),
                                     blurRadius: 4,
                                   ),
@@ -109,13 +205,10 @@ class _DetailChatbotState extends State<DetailChatbot> {
                               ),
                       child: Text(
                         message.text,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color:
-                              message.isUser
-                                  ? Color(0xff7B5131)
-                                  : Color(0xffBD4F0A),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -129,9 +222,12 @@ class _DetailChatbotState extends State<DetailChatbot> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color(0xffFBF4E3),
+                color: Theme.of(context).colorScheme.primary,
                 boxShadow: [
-                  BoxShadow(color: Color(0xff7B5131), offset: Offset(0, 4)),
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.secondary,
+                    offset: Offset(0, 4),
+                  ),
                 ],
               ),
               child: Row(
@@ -143,9 +239,9 @@ class _DetailChatbotState extends State<DetailChatbot> {
                       },
                       controller: _controller,
                       decoration: InputDecoration(
-                        hintText: 'Ask anything',
+                        hintText: 'Tulis pertanyaan terkait Travel...',
                         hintStyle: TextStyle(
-                          color: Color(0xff7B5131),
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 14,
                         ),
                         border: InputBorder.none,
@@ -159,7 +255,9 @@ class _DetailChatbotState extends State<DetailChatbot> {
                         child: SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       )
                       : IconButton(
@@ -169,7 +267,7 @@ class _DetailChatbotState extends State<DetailChatbot> {
                         },
                         icon: Icon(
                           Icons.send_rounded,
-                          color: Color(0xff7B5131),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                 ],

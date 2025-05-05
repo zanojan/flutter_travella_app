@@ -20,14 +20,14 @@ class DetailDev extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Color(0xff7B5131)),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.secondary),
         centerTitle: true,
         title: Text(
           'About Dev',
-          style: TextStyle(color: Color(0xff7B5131), fontSize: 20),
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 20),
         ),
       ),
       body: Padding(
@@ -75,7 +75,7 @@ class DetailDev extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xff7B5131),
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             SizedBox(height: 10),
@@ -85,7 +85,7 @@ class DetailDev extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Color(0xff7B5131),
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             SizedBox(height: 10),
@@ -97,7 +97,7 @@ class DetailDev extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(
                       style: BorderStyle.solid,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -115,7 +115,7 @@ class DetailDev extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),
@@ -130,7 +130,7 @@ class DetailDev extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(
                       style: BorderStyle.solid,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -148,7 +148,7 @@ class DetailDev extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),
@@ -163,7 +163,7 @@ class DetailDev extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(
                       style: BorderStyle.solid,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -178,7 +178,7 @@ class DetailDev extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),

@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_travella_app/screen/settings/detail_dev.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_travella_app/data/riverpod/theme_riverpod.dart';
+import 'package:flutter_travella_app/screen/home/detail/detail_dev.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends ConsumerStatefulWidget {
+  const SettingScreen({super.key});
+
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  ConsumerState<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
-  bool isSwitched = false;
-
+class _SettingScreenState extends ConsumerState<SettingScreen> {
   @override
   Widget build(BuildContext context) {
+    final currentTheme = ref.watch(themeRiverpod);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         automaticallyImplyLeading: false,
         title: Container(
           height: 52,
@@ -27,18 +31,21 @@ class _SettingScreenState extends State<SettingScreen> {
                 Text(
                   'Setting',
                   style: TextStyle(
-                    color: Color(0xff7B5131),
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Icon(Icons.notifications, color: Color(0xff7B5131)),
+                Icon(
+                  Icons.notifications,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ],
             ),
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 34, vertical: 47),
         child: Column(
@@ -52,37 +59,30 @@ class _SettingScreenState extends State<SettingScreen> {
                   width: 44,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff2F2D2A),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  child: Image.asset(
-                    'assets/dark_mode.png',
-                    height: 24,
-                    width: 24,
-                  ),
+                  child: Icon(Icons.dark_mode_outlined, color: Theme.of(context).colorScheme.secondary,)
                 ),
                 Text(
                   'Dark Mode',
                   style: TextStyle(
-                    color: Color(0xff7B5131),
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  children: [
-                    Switch(
-                      value: isSwitched,
-                      onChanged: (value) {
-                        setState(() {
-                          isSwitched = value;
-                        });
-                      },
-                      activeColor: Colors.amberAccent,
-                      inactiveThumbColor: Colors.blue,
-                      inactiveTrackColor: Colors.black45,
-                      activeTrackColor: Colors.grey.shade200,
-                    ),
-                  ],
+                GestureDetector(
+                  child:
+                      (currentTheme == ThemeMode.dark)
+                          ? Icon(Icons.light_mode, color: Color(0xffFBF4E3))
+                          : Icon(
+                            Icons.dark_mode,
+                            color: Color(0xff7B5131),
+                          
+                          ),
+                  onTap: () {
+                    ref.read(themeRiverpod.notifier).toggleTheme();
+                  },
                 ),
               ],
             ),
@@ -95,11 +95,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   width: 44,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xffFBF4E3),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   child: Icon(
                     Icons.emoji_emotions_outlined,
-                    color: Color(0xff7B5131),
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 GestureDetector(
@@ -112,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   child: Text(
                     'About Developer',
                     style: TextStyle(
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -130,18 +130,18 @@ class _SettingScreenState extends State<SettingScreen> {
                   width: 44,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff9E4643),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  child: Image.asset('assets/directions_walk.png'),
+                  child: Icon(Icons.exit_to_app, color: Theme.of(context).colorScheme.secondary,),
                 ),
                 GestureDetector(
                   onTap: () {
-                   SystemNavigator.pop(); 
+                    SystemNavigator.pop();
                   },
                   child: Text(
                     'Exit',
                     style: TextStyle(
-                      color: Color(0xff7B5131),
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
