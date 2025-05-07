@@ -18,6 +18,7 @@ class SplashScreen extends StatelessWidget {
           Positioned(
             left: 15,
             bottom: 0,
+            right: 15,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -27,7 +28,7 @@ class SplashScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 11),
                 Text(
-                  'Traveling bukan hanya tentang melihat tempat baru, tapi tentang\nmenemukan versi terbaik dari dirimu di setiap langkah perjalanan.',
+                  'Traveling bukan hanya tentang melihat tempat baru, tapi tentang menemukan versi terbaik dari dirimu di setiap langkah perjalanan.',
                   style: TextStyle(color: Colors.white, fontSize: 11),
                 ),
                 SizedBox(height: 11),

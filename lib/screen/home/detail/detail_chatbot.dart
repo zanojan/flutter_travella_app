@@ -237,11 +237,12 @@ String getTransportOptions() {
                       onSubmitted: (value) {
                         FocusScope.of(context).unfocus();
                       },
+                      style: TextStyle(color: Color(0xff7B5131)),
                       controller: _controller,
                       decoration: InputDecoration(
                         hintText: 'Tulis pertanyaan terkait Travel...',
                         hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Color(0xff7B5131),
                           fontSize: 14,
                         ),
                         border: InputBorder.none,
